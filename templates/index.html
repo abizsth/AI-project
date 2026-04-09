@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valora  Nepal House Price Estimator</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="preloader-line"></div>
+  <div class="preloader-brand">V<span>A</span>LORA</div>
+  <div class="preloader-tagline">Nepal House Price Estimator</div>
+  <div class="preloader-bar-wrap"><div class="preloader-bar"></div></div>
+</div>
+
+<!-- LOADING OVERLAY -->
+<div id="loading-overlay">
+  <div class="spinner"></div>
+  <div class="loading-text">Estimating your property</div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div id="parallax-bg"></div>
+  <div id="hero-overlay"></div>
+  <div class="hero-content" id="hero-content">
+    <div class="hero-eyebrow">Valora &mdash; Nepal</div>
+    <h1 class="hero-title">Are you ready to<br><em>find your home?</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">Instant property price estimates across Nepal powered by real market data and machine learning.</p>
+    <div class="hero-scroll" onclick="document.getElementById('estimator').scrollIntoView({behavior:'smooth'})">
+      <div class="scroll-icon">
+        <svg viewBox="0 0 12 12"><polyline points="2,4 6,8 10,4"/></svg>
+      </div>
+      Begin your estimate
+    </div>
+  </div>
+</section>
+
+<!-- ESTIMATOR -->
+<section id="estimator">
+  <div id="estimator-bg" aria-hidden="true"></div>
+  <div id="estimator-overlay" aria-hidden="true"></div>
+  <div class="estimator-inner">
+    <div class="est-header">
+      <div class="est-eyebrow">Property Estimator</div>
+      <h2 class="est-title">Tell us about<br><em>the property</em></h2>
+    </div>
+    <div class="progress-wrap">
+      <div class="step-dot active" id="dot-0">1</div>
+      <div class="step-spacer"></div>
+      <div class="step-dot" id="dot-1">2</div>
+      <div class="step-spacer"></div>
+      <div class="step-dot" id="dot-2">3</div>
+      <div class="step-spacer"></div>
+      <div class="step-dot" id="dot-3">4</div>
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <!-- Step 0 -->
+    <div class="step-card active" id="step-0">
+      <div class="card-box">
+        <div class="card-q">Where is the property located?</div>
+        <div class="card-hint">Enter the neighbourhood and city in Nepal</div>
+        <div class="input-group">
+          <label class="input-label">Neighbourhood / Location</label>
+          <input class="val-input" id="inp-location" type="text" placeholder="Location" autocomplete="off" inputmode="text">
+          <div class="error-msg" id="err-location">Please enter a location</div>
+        </div>
+        <div class="input-group">
+          <label class="input-label">City</label>
+          <input class="val-input" id="inp-city" type="text" placeholder="City" autocomplete="off" inputmode="text">
+          <div class="error-msg" id="err-city">Please enter a city</div>
+        </div>
+        <div class="card-nav"><span></span><button class="btn-next" id="btn-next-0">Continue &rarr;</button></div>
+      </div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="step-card" id="step-1">
+      <div class="card-box">
+        <div class="card-q">How big is the property?</div>
+        <div class="card-hint">Land area in Anna and number of floors</div>
+        <div class="input-row">
+          <div class="input-group">
+            <label class="input-label">Area (Anna)</label>
+            <input class="val-input" id="inp-area" type="number" placeholder="Area" min="0.1" max="50" step="0.1">
+            <div class="error-msg" id="err-area">Enter area between 2 – 15 Anna</div>
+          </div>
+          <div class="input-group">
+            <label class="input-label">Total Floors</label>
+            <input class="val-input" id="inp-floors" type="number" placeholder="Floors" min="0.5" max="10" step="0.5">
+            <div class="error-msg" id="err-floors">Enter floors between 2 – 10</div>
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Road Width (ft)</label>
+          <input class="val-input" id="inp-road" type="number" placeholder="Road width" min="4" max="100" step="1">
+          <div class="error-msg" id="err-road">Enter road width between 4 – 16 ft</div>
+        </div>
+        <div class="card-nav">
+          <button class="btn-back" id="btn-back-1">&#8592; Back</button>
+          <button class="btn-next" id="btn-next-1">Continue &rarr;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step-card" id="step-2">
+      <div class="card-box">
+        <div class="card-q">How many rooms?</div>
+        <div class="card-hint">Bedrooms and bathrooms in the property</div>
+        <div class="stepper-group">
+          <div class="stepper-row">
+            <div class="stepper-lbl">Bedrooms (BHK)</div>
+            <div class="stepper">
+              <button class="stepper-btn" id="bhk-dec">&#8722;</button>
+              <div class="stepper-val" id="val-bhk">3</div>
+              <button class="stepper-btn" id="bhk-inc">&#43;</button>
+            </div>
+          </div>
+          <div class="stepper-row">
+            <div class="stepper-lbl">Bathrooms</div>
+            <div class="stepper">
+              <button class="stepper-btn" id="bath-dec">&#8722;</button>
+              <div class="stepper-val" id="val-bath">2</div>
+              <button class="stepper-btn" id="bath-inc">&#43;</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-nav">
+          <button class="btn-back" id="btn-back-2">&#8592; Back</button>
+          <button class="btn-next" id="btn-next-2">Continue &rarr;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 (Review) -->
+    <div class="step-card" id="step-3">
+      <div class="card-box">
+        <div class="card-q">Ready to estimate?</div>
+        <div class="card-hint">Review your details before we calculate</div>
+        <div id="review-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px;"></div>
+        <div class="card-nav">
+          <button class="btn-back" id="btn-back-3">&#8592; Back</button>
+          <button class="btn-next" id="btn-submit">Get Estimate &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULT SECTION -->
+<section id="result-section">
+  <div class="result-inner">
+    <div class="result-header">
+      <div class="result-location" id="res-location">—</div>
+      <div class="result-title">Your Property Estimate</div>
+    </div>
+    <div class="result-card">
+      <div class="result-price-band">
+        <div class="result-label">Estimated Market Value</div>
+        <div class="result-price" id="res-price">—</div>
+        <div class="result-range" id="res-range">—</div>
+      </div>
+      <div class="result-meta">
+        <div class="meta-item"><div class="meta-val" id="res-area">—</div><div class="meta-lbl">Anna</div></div>
+        <div class="meta-item"><div class="meta-val" id="res-bhk">—</div><div class="meta-lbl">Bedrooms</div></div>
+        <div class="meta-item"><div class="meta-val" id="res-road">—</div><div class="meta-lbl">Road Width</div></div>
+      </div>
+      <div class="result-note">
+        <div class="note-text" id="res-note">Estimate based on recent Nepal property data. Actual prices may vary. <strong>±12% typical range.</strong></div>
+      </div>
+      <div class="result-actions">
+        <button class="btn-restart" id="btn-restart">&#8592; New Estimate</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Valora</span> &mdash; Nepal Property Intelligence &mdash; Powered by ML
+</footer>
+
+<!-- External JavaScript -->
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
